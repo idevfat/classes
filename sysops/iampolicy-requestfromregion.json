@@ -1,0 +1,32 @@
+//identity-based policy that denies access to any actions outside the Regions specified using the aws:RequestedRegion condition key.
+//This policy uses the NotAction element with the Deny effect, which explicitly denies access to all of the actions not listed in the statement. 
+//Actions in the CloudFront, IAM, Route 53, and AWS Support services should not be denied because 
+//these are popular AWS global services with a single endpoint that is physically located in the us-east-1 Region. 
+//Because all requests to these services are made to the us-east-1 Region, the requests would be denied without the NotAction element.
+//https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-requested-region.html
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyAllOutsideRequestedRegions",
+            "Effect": "Deny",
+            "NotAction": [
+                "cloudfront:*",
+                "iam:*",
+                "route53:*",
+                "support:*"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:RequestedRegion": [
+                        "eu-central-1",
+                        "eu-west-1",
+                        "eu-west-2",
+                        "eu-west-3"
+                    ]
+                }
+            }
+        }
+    ]
+}
