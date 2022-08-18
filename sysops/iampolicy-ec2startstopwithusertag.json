@@ -1,6 +1,7 @@
 //identity-based policy that allows an IAM user to start or stop EC2 instances, 
 //but only if the instance tag Owner has the value of that user's user name. 
 //This policy defines permissions for programmatic and console access.
+//https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_ec2_tag-owner.html
 {
     "Version": "2012-10-17",
     "Statement": [
